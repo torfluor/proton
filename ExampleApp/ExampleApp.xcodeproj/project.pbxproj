@@ -55,6 +55,7 @@
 		1BFFEF0E23C3228900D2BA35 /* FixedWidthAttachmentExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BFFEF0D23C3228900D2BA35 /* FixedWidthAttachmentExampleViewController.swift */; };
 		1BFFEF1023C32B5A00D2BA35 /* WidthRangeAttachmentExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BFFEF0F23C32B5A00D2BA35 /* WidthRangeAttachmentExampleViewController.swift */; };
 		1BFFEF1223C3310A00D2BA35 /* PercentWidthAttachmentExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BFFEF1123C3310A00D2BA35 /* PercentWidthAttachmentExampleViewController.swift */; };
+		8EAB7E3E246E5DA000A07BD5 /* TableExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EAB7E3D246E5DA000A07BD5 /* TableExampleViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -143,6 +144,7 @@
 		1BFFEF0D23C3228900D2BA35 /* FixedWidthAttachmentExampleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixedWidthAttachmentExampleViewController.swift; sourceTree = "<group>"; };
 		1BFFEF0F23C32B5A00D2BA35 /* WidthRangeAttachmentExampleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidthRangeAttachmentExampleViewController.swift; sourceTree = "<group>"; };
 		1BFFEF1123C3310A00D2BA35 /* PercentWidthAttachmentExampleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PercentWidthAttachmentExampleViewController.swift; sourceTree = "<group>"; };
+		8EAB7E3D246E5DA000A07BD5 /* TableExampleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableExampleViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -206,6 +208,7 @@
 			isa = PBXGroup;
 			children = (
 				1B183D8323CE8C8500AE83E5 /* RendererCommandExampleViewController.swift */,
+				8EAB7E3D246E5DA000A07BD5 /* TableExampleViewController.swift */,
 			);
 			path = Renderer;
 			sourceTree = "<group>";
@@ -526,6 +529,7 @@
 				1B91F4BA23C73D96003F9B55 /* TextProcessorExampleViewController.swift in Sources */,
 				1B275F362463809200D5C377 /* TextBlockCommand.swift in Sources */,
 				1BFFEEFE23C2D3E500D2BA35 /* MatchContentAttachmentExampleViewController.swift in Sources */,
+				8EAB7E3E246E5DA000A07BD5 /* TableExampleViewController.swift in Sources */,
 				1B91F4B823C73D3C003F9B55 /* MarkupTextProcessor.swift in Sources */,
 				1B164F4323D2A5A000A0869A /* ResetCommand.swift in Sources */,
 				1B164F2E23D282A500A0869A /* JSONDecoder.swift in Sources */,

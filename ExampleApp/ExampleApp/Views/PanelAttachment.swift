@@ -37,6 +37,11 @@ class PanelAttachment: Attachment {
         get { view.attributedText }
         set { view.attributedText = newValue }
     }
+    
+    var backgroundColor: UIColor? {
+        get { view.backgroundColor }
+        set { view.backgroundColor = newValue }
+    }
 
     override func addedAttributesOnContainingRange(rangeInContainer range: NSRange, attributes: [NSAttributedString.Key: Any]) {
         var attributesWithoutParaStyle = attributes
