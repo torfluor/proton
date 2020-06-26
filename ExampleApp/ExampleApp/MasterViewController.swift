@@ -48,7 +48,8 @@ class MasterViewController: UITableViewController {
             NavigationItem(title: "Text Processors", viewController: TextProcessorExampleViewController()),
         ]),
         Navigation(title: "Renderer", items: [
-            NavigationItem(title: "Commands", viewController: RendererCommandsExampleViewController())
+            NavigationItem(title: "Commands", viewController: RendererCommandsExampleViewController()),
+            NavigationItem(title: "Cells", viewController: TableExampleViewController()),
         ]),
         Navigation(title: "Miscellaneous", items: [
             NavigationItem(title: "Menu", viewController: MenuExampleViewController())
