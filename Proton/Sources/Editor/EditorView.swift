@@ -844,7 +844,11 @@ extension EditorView: RichTextViewDelegate {
 
 extension EditorView {
     func invalidateLayout(for range: NSRange) {
-        richTextView.invalidateLayout(for: range)
+        if isEditable {
+            richTextView.invalidateLayout(for: range)
+        } else {
+            richTextView.invalidateDisplay(for: range)
+        }
     }
 
     func relayoutAttachments(in range: NSRange? = nil) {
