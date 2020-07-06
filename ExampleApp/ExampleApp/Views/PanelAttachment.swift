@@ -44,7 +44,11 @@ class PanelAttachment: Attachment {
     }
 
     override func addedAttributesOnContainingRange(rangeInContainer range: NSRange, attributes: [NSAttributedString.Key: Any]) {
-        view.editor.addAttributes(attributes, at: view.editor.attributedText.fullRange)
+        var attributesWithoutParaStyle = attributes
+        // Do not carry over para/list styles to panel content as it may be inconsistent based on outer content
+        attributesWithoutParaStyle[.paragraphStyle] = nil
+        attributesWithoutParaStyle[.listItem] = nil
+        view.editor.addAttributes(attributesWithoutParaStyle, at: view.editor.attributedText.fullRange)
     }
 
     override func removedAttributesFromContainingRange(rangeInContainer range: NSRange, attributes: [NSAttributedString.Key]) {
@@ -58,7 +62,7 @@ extension PanelAttachment: PanelViewDelegate {
         containerEditor.delegate?.editor(containerEditor, didChangeSelectionAt: range, attributes: attributes, contentType: contentType)
     }
 
-    func panel(_ panel: PanelView, didReceiveKey key: EditorKey, at range: NSRange, handled: inout Bool) {
+    func panel(_ panel: PanelView, shouldHandle key: EditorKey, at range: NSRange, handled: inout Bool) {
         if key == .backspace, range == .zero, panel.editor.attributedText.string.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             removeFromContainer()
             handled = true

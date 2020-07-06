@@ -247,7 +247,7 @@ class EditorViewTests: XCTestCase {
         editor.appendCharacters(line2)
         editor.selectedRange = NSRange(location: line1.length + 4, length: 1)
 
-        let currentLine = editor.currentLine
+        let currentLine = editor.currentLayoutLine
         XCTAssertEqual(currentLine?.text.string, line2.string)
         XCTAssertEqual(currentLine?.startsWith("And"), true)
         XCTAssertEqual(currentLine?.endsWith("line 2"), true)
@@ -255,7 +255,7 @@ class EditorViewTests: XCTestCase {
 
     func testReturnsZeroRangeForLineInEmptyEditor() {
         let editor = EditorView()
-        let line = editor.currentLine
+        let line = editor.currentLayoutLine
         XCTAssertEqual(line?.range, .zero)
     }
 
@@ -388,9 +388,9 @@ class EditorViewTests: XCTestCase {
         let attrString = NSMutableAttributedString(string: "This is a test string")
         editor.attributedText = attrString
 
-        let currentLine = try XCTUnwrap(editor.currentLine)
+        let currentLine = try XCTUnwrap(editor.currentLayoutLine)
         XCTAssertEqual(currentLine.text.string, attrString.string)
-        XCTAssertNil(editor.lineAfter(currentLine))
+        XCTAssertNil(editor.layoutLineAfter(currentLine))
     }
 
     func testReturnsNilForInvalidPreviousLine() throws {
@@ -398,9 +398,9 @@ class EditorViewTests: XCTestCase {
         let attrString = NSMutableAttributedString(string: "This is a test string")
         editor.attributedText = attrString
 
-        let currentLine = try XCTUnwrap(editor.currentLine)
+        let currentLine = try XCTUnwrap(editor.currentLayoutLine)
         XCTAssertEqual(currentLine.text.string, attrString.string)
-        XCTAssertNil(editor.lineBefore(currentLine))
+        XCTAssertNil(editor.layoutLineBefore(currentLine))
     }
 
     func testResetsAttributesWhenCleared() {
@@ -459,6 +459,90 @@ class EditorViewTests: XCTestCase {
         XCTAssertEqual(registeredCommands.count, 2)
         XCTAssertTrue(registeredCommands[0] === command2)
         XCTAssertTrue(registeredCommands[1] === command4)
+    }
+
+    func testGetsContentLinesInRangeContainingNoNewline() {
+        let editor = EditorView()
+        let line1 = "Line 1"
+        editor.appendCharacters(NSAttributedString(string: line1))
+        let lines = editor.contentLinesInRange(editor.attributedText.fullRange)
+
+        XCTAssertEqual(lines.count, 1)
+        XCTAssertEqual(lines[0].text.string, line1)
+    }
+
+    func testGetsContentLinesInZeroLengthRange() {
+        let editor = EditorView()
+        let line1 = "Line 1"
+        editor.appendCharacters(NSAttributedString(string: line1))
+        let lines = editor.contentLinesInRange(NSRange(location: 3, length: 0))
+
+        XCTAssertEqual(lines.count, 1)
+        XCTAssertEqual(lines[0].text.string, line1)
+    }
+
+    func testGetsContentLinesInRange() {
+        let editor = EditorView()
+        let line1 = "Line 1"
+        let line2 = "Line 2"
+        let line3 = "Line 3"
+
+        editor.appendCharacters(NSAttributedString(string: line1))
+        editor.appendCharacters(NSAttributedString(string: "\n"))
+        editor.appendCharacters(NSAttributedString(string: line2))
+        editor.appendCharacters(NSAttributedString(string: "\n"))
+        editor.appendCharacters(NSAttributedString(string: line3))
+
+        let lines = editor.contentLinesInRange(editor.attributedText.fullRange)
+
+        XCTAssertEqual(lines.count, 3)
+        XCTAssertEqual(lines[0].text.string, line1)
+        XCTAssertEqual(lines[1].text.string, line2)
+        XCTAssertEqual(lines[2].text.string, line3)
+    }
+
+    func testGetsPreviousLineFromLocation() {
+        let editor = EditorView()
+        let line1 = "Line 1"
+        let line2 = "Line 2"
+
+        editor.appendCharacters(NSAttributedString(string: line1))
+        editor.appendCharacters(NSAttributedString(string: "\n"))
+        editor.appendCharacters(NSAttributedString(string: line2))
+
+        let previousLine = editor.previousContentLine(from: 7)
+        XCTAssertEqual(previousLine?.text.string, line1)
+    }
+
+    func testGetsPreviousLineFromLocationWithNoPrecedingNewline() {
+        let editor = EditorView()
+        let line1 = "Line 1"
+
+        editor.appendCharacters(NSAttributedString(string: line1))
+        let previousLine = editor.previousContentLine(from: 3)
+        XCTAssertNil(previousLine)
+    }
+
+    func testGetsNextLineFromLocation() {
+        let editor = EditorView()
+        let line1 = "Line 1"
+        let line2 = "Line 2"
+
+        editor.appendCharacters(NSAttributedString(string: line1))
+        editor.appendCharacters(NSAttributedString(string: "\n"))
+        editor.appendCharacters(NSAttributedString(string: line2))
+
+        let nextLine = editor.nextContentLine(from: 3)
+        XCTAssertEqual(nextLine?.text.string, line2)
+    }
+
+    func testGetsNextLineFromLocationWithNoEndingNewLine() {
+        let editor = EditorView()
+        let line1 = "Line 1"
+
+        editor.appendCharacters(NSAttributedString(string: line1))
+        let nextLine = editor.nextContentLine(from: 3)
+        XCTAssertNil(nextLine)
     }
 
     func testNotifiesDelegateOfSizeChanges() {
