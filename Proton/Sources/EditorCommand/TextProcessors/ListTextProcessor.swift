@@ -34,6 +34,10 @@ import UIKit
 public class ListTextProcessor: TextProcessing {
     public let name = "listProcessor"
 
+    // Zero width space - used for laying out the list bullet/number in an empty line.
+    // This is required when using tab on a blank bullet line. Without this, layout calculations are not performed.
+    static let blankLineFiller = "\u{200B}"
+
     /// Initializes text processor.
     public init() { }
 
@@ -84,7 +88,7 @@ public class ListTextProcessor: TextProcessing {
         case .backspace:
             let text = editor.attributedText.attributedSubstring(from: editedRange)
             guard editedRange.location > 0,
-                text.string == blankLineFiller,
+                text.string == ListTextProcessor.blankLineFiller,
                 text.attribute(.listItem, at: 0, effectiveRange: nil) != nil,
                 editor.attributedText.attributedSubstring(from: NSRange(location: editedRange.location - 1, length: 1)).string == "\n" else {
                 return
@@ -122,7 +126,7 @@ public class ListTextProcessor: TextProcessing {
             attributeValue = previousLine.text.attribute(.listItem, at: 0, effectiveRange: nil)
         }
 
-        if (currentLine.text.length == 0 || currentLine.text.string == blankLineFiller),
+        if (currentLine.text.length == 0 || currentLine.text.string == ListTextProcessor.blankLineFiller),
             attributeValue != nil {
             executeOnDidProcess = { editor in
                 Self.updateListItemIfRequired(editor: editor, editedRange: currentLine.range, indentMode: .outdent, attributeValue: attributeValue)
@@ -138,7 +142,7 @@ public class ListTextProcessor: TextProcessing {
         executeOnDidProcess = nil
         guard editor.selectedRange.endLocation < editor.contentLength else { return }
         let lastChar = editor.attributedText.attributedSubstring(from: NSRange(location: editor.selectedRange.location, length: 1))
-        if lastChar.string == blankLineFiller {
+        if lastChar.string == ListTextProcessor.blankLineFiller {
             editor.selectedRange = editor.selectedRange.nextPosition
         }
         editor.typingAttributes[.skipNextListMarker] = nil
@@ -214,9 +218,13 @@ public class ListTextProcessor: TextProcessing {
         attrs[.paragraphStyle] = updatedStyle
         attrs[.listItem] = updatedStyle?.firstLineHeadIndent ?? 0 > 0.0 ? listAttributeValue : nil
         attrs[.viewOnly] = ()
-        let marker = NSAttributedString(string: blankLineFiller, attributes: attrs)
+        let marker = NSAttributedString(string: ListTextProcessor.blankLineFiller, attributes: attrs)
         editor.replaceCharacters(in: editedRange, with: marker)
+        // Disable selection handles otherwise the selection handles are displayed momentarily
+        // and then edit menu is shown - due to change in selection
+        editor.enableSelectionHandles = false
         editor.selectedRange = editedRange.nextPosition
+        editor.enableSelectionHandles = true
     }
 
     static func updatedParagraphStyle(paraStyle: NSParagraphStyle?, listLineFormatting: LineFormatting, indentMode: Indentation) -> NSParagraphStyle? {
@@ -282,7 +290,3 @@ public class ListIndentCommand: EditorCommand {
         return lineText.attribute(.listItem, at: 0, effectiveRange: nil)
     }
 }
-
-// Zero width space - used for laying out the list bullet/number in an empty line.
-// This is required when using tab on a blank bullet line. Without this, layout calculations are not performed.
-private let blankLineFiller = "\u{200B}"
