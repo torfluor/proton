@@ -109,6 +109,10 @@
 		1BFFEF1C23C334D200D2BA35 /* InlineEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BFFEF1B23C334D200D2BA35 /* InlineEditorView.swift */; };
 		1BFFEF1F23C3366200D2BA35 /* MockAttachmentOffsetProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BFFEF1E23C3366200D2BA35 /* MockAttachmentOffsetProvider.swift */; };
 		1BFFEF2123C33EA900D2BA35 /* PanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BFFEF2023C33EA900D2BA35 /* PanelView.swift */; };
+		3F4EFCA4250CDAA600AEC959 /* RKTextStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F4EFCA2250CDAA600AEC959 /* RKTextStorage.h */; };
+		3F4EFCA5250CDAA600AEC959 /* RKTextStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F4EFCA3250CDAA600AEC959 /* RKTextStorage.m */; };
+		3F4EFCA8250D15AD00AEC959 /* EditorContentName.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F4EFCA6250D15AD00AEC959 /* EditorContentName.h */; };
+		3F4EFCA9250D15AD00AEC959 /* EditorContentName.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F4EFCA7250D15AD00AEC959 /* EditorContentName.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -273,6 +277,10 @@
 		1BFFEF3123C342D800D2BA35 /* testWidthRangeRendering@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "testWidthRangeRendering@3x.png"; sourceTree = "<group>"; };
 		1BFFEF3223C342D800D2BA35 /* testMatchContainerRendering@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "testMatchContainerRendering@3x.png"; sourceTree = "<group>"; };
 		1BFFEF3323C342D800D2BA35 /* testFixedWidthRendering@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "testFixedWidthRendering@3x.png"; sourceTree = "<group>"; };
+		3F4EFCA2250CDAA600AEC959 /* RKTextStorage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RKTextStorage.h; sourceTree = "<group>"; };
+		3F4EFCA3250CDAA600AEC959 /* RKTextStorage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RKTextStorage.m; sourceTree = "<group>"; };
+		3F4EFCA6250D15AD00AEC959 /* EditorContentName.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditorContentName.h; sourceTree = "<group>"; };
+		3F4EFCA7250D15AD00AEC959 /* EditorContentName.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditorContentName.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -425,6 +433,10 @@
 			isa = PBXGroup;
 			children = (
 				1B45CDB923BF10DF001EB196 /* TextStorage.swift */,
+				3F4EFCA2250CDAA600AEC959 /* RKTextStorage.h */,
+				3F4EFCA3250CDAA600AEC959 /* RKTextStorage.m */,
+				3F4EFCA6250D15AD00AEC959 /* EditorContentName.h */,
+				3F4EFCA7250D15AD00AEC959 /* EditorContentName.m */,
 				1B45CDCF23C007AF001EB196 /* RichTextView.swift */,
 				1BD21553246951090000BCE2 /* LayoutManager.swift */,
 				1B45CDD123C00856001EB196 /* TextContainer.swift */,
@@ -814,6 +826,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F4EFCA8250D15AD00AEC959 /* EditorContentName.h in Headers */,
+				3F4EFCA4250CDAA600AEC959 /* RKTextStorage.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -929,6 +943,7 @@
 				1B7A985923C484BC00C34B14 /* RichTextViewDelegate.swift in Sources */,
 				1B45CDE123C05476001EB196 /* UIColor+Image.swift in Sources */,
 				1B45CD9123BDD7E6001EB196 /* AutogrowingTextView.swift in Sources */,
+				3F4EFCA9250D15AD00AEC959 /* EditorContentName.m in Sources */,
 				1B45CDE623C05942001EB196 /* AttachmentSize.swift in Sources */,
 				1B975AFB23CD3E9B00EC410C /* RendererView.swift in Sources */,
 				1B164F1023D1BE9900A0869A /* AttributesDecoding.swift in Sources */,
@@ -952,6 +967,7 @@
 				1B45CDC523BF13D4001EB196 /* NSRangeExtensions.swift in Sources */,
 				1BBAC3E023CE81F40088A1C8 /* RendererCommandExecutor.swift in Sources */,
 				1B45014F247E5AD9007B3EE9 /* SequenceGenerator.swift in Sources */,
+				3F4EFCA5250CDAA600AEC959 /* RKTextStorage.m in Sources */,
 				1BD993B823C9AE4200563ACB /* NSAttributedString+Content.swift in Sources */,
 				1B975B0123CD45DC00EC410C /* RendererViewContext.swift in Sources */,
 				1B4B60CD247FC6AF002B63CF /* ListTextProcessor.swift in Sources */,
